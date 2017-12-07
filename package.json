@@ -1,0 +1,19 @@
+{
+  "name": "Wapcon-Docker",
+  "private": true,
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext js,vue ./main.js front/**/*.js front/**/*.vue",
+    "start": "npm run test",
+    "test": "npm run lint -s && cross-env NODE_ENV=test mocha test/**/*.test.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "cross-env": "^5.0.5",
+    "eslint": "^4.0.0",
+    "mocha": "^4.0.1",
+    "sinon": "^4.0.0"
+  }
+}
