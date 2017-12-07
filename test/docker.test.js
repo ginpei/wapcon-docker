@@ -3,8 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const sinon = require('sinon')
 
-const commandRunner = require('../src/commandRunner.js')
-const docker = require('../src/docker.js')
+const docker = require('../index.js')
 const functions = docker.functions
 
 describe('back/docker', () => {
@@ -75,9 +74,9 @@ describe('back/docker', () => {
 		let result
 
 		beforeEach(() => {
-			sinon.stub(commandRunner, 'run')
+			sinon.stub(docker.commandRunner, 'run')
 
-			commandRunner.run
+			docker.commandRunner.run
 				.withArgs('docker image ls --format {{.Repository}}:{{.Tag}}')
 				.returns(Promise.resolve({
 					result: [
@@ -87,7 +86,7 @@ describe('back/docker', () => {
 		})
 
 		afterEach(() => {
-			commandRunner.run.restore()
+			docker.commandRunner.run.restore()
 		})
 
 		it('returns availability for an available image', (done) => {
