@@ -7,6 +7,15 @@ const docker = require('../index.js')
 const functions = docker.functions
 
 describe('back/docker', () => {
+	beforeEach(() => {
+		sinon.stub(docker.commandRunner, 'run')
+	})
+
+	afterEach(() => {
+		docker.commandRunner.run.restore()
+	})
+
+
 	describe('createArgFromPreferences()', () => {
 		let result
 
@@ -74,8 +83,6 @@ describe('back/docker', () => {
 		let result
 
 		beforeEach(() => {
-			sinon.stub(docker.commandRunner, 'run')
-
 			docker.commandRunner.run
 				.withArgs('docker image ls --format {{.Repository}}:{{.Tag}}')
 				.returns(Promise.resolve({
@@ -83,10 +90,6 @@ describe('back/docker', () => {
 						{ type: 'stdout', text: 'mysql:latest\nwordpress:latest' },
 					],
 				}))
-		})
-
-		afterEach(() => {
-			docker.commandRunner.run.restore()
 		})
 
 		it('returns availability for an available image', (done) => {
