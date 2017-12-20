@@ -15,6 +15,103 @@ describe('back/docker', () => {
 		docker.commandRunner.run.restore()
 	})
 
+	describe('checkMachineStatus()', () => {
+		describe('in case both db and wp are not rady', () => {
+			let result;
+
+			beforeEach((done) => {
+				docker.commandRunner.run
+					.withArgs('docker container ls --format {{.Names}} --filter name=wapcon-')
+					.returns(Promise.resolve({
+						result: [
+							// empty
+						],
+					}))
+
+				docker.checkMachineStatus()
+					.then((_result) => {
+						result = _result
+						done();
+					})
+			})
+
+			it('db is false', () => {
+				expect(result.db).to.equal(false)
+			})
+
+			it('wp is false', () => {
+				expect(result.wp).to.equal(false)
+			})
+
+			it('running is false', () => {
+				expect(result.running).to.equal(false)
+			})
+		})
+
+		describe('in case either db or wp are not rady', () => {
+			let result;
+		
+			beforeEach((done) => {
+				docker.commandRunner.run
+					.withArgs('docker container ls --format {{.Names}} --filter name=wapcon-')
+					.returns(Promise.resolve({
+						result: [
+							{ type: 'stdout', text: 'foo\nwapcon-db\nbar' },
+						],
+					}))
+		
+				docker.checkMachineStatus()
+					.then((_result) => {
+						result = _result
+						done();
+					})
+			})
+		
+			it('db is true', () => {
+				expect(result.db).to.equal(true)
+			})
+		
+			it('wp is false', () => {
+				expect(result.wp).to.equal(false)
+			})
+		
+			it('running is false', () => {
+				expect(result.running).to.equal(false)
+			})
+		})
+
+		describe('in case both db or wp are rady', () => {
+			let result;
+		
+			beforeEach((done) => {
+				docker.commandRunner.run
+					.withArgs('docker container ls --format {{.Names}} --filter name=wapcon-')
+					.returns(Promise.resolve({
+						result: [
+							{ type: 'stdout', text: 'wapcon-db\nwapcon-wp' },
+						],
+					}))
+		
+				docker.checkMachineStatus()
+					.then((_result) => {
+						result = _result
+						done();
+					})
+			})
+		
+			it('db is true', () => {
+				expect(result.db).to.equal(true)
+			})
+		
+			it('wp is true', () => {
+				expect(result.wp).to.equal(true)
+			})
+		
+			it('running is true', () => {
+				expect(result.running).to.equal(true)
+			})
+		})
+	})
 
 	describe('createArgFromPreferences()', () => {
 		let result
