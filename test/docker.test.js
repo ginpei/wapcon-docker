@@ -35,16 +35,16 @@ describe('back/docker', () => {
 					})
 			})
 
+			it('ok is false', () => {
+				expect(result.ok).to.equal(false)
+			})
+
 			it('db is false', () => {
 				expect(result.db).to.equal(false)
 			})
 
 			it('wp is false', () => {
 				expect(result.wp).to.equal(false)
-			})
-
-			it('running is false', () => {
-				expect(result.running).to.equal(false)
 			})
 		})
 
@@ -67,16 +67,16 @@ describe('back/docker', () => {
 					})
 			})
 
+			it('ok is false', () => {
+				expect(result.ok).to.equal(false)
+			})
+
 			it('db is true', () => {
 				expect(result.db).to.equal(true)
 			})
 
 			it('wp is false', () => {
 				expect(result.wp).to.equal(false)
-			})
-
-			it('running is false', () => {
-				expect(result.running).to.equal(false)
 			})
 		})
 
@@ -99,16 +99,16 @@ describe('back/docker', () => {
 					})
 			})
 
+			it('ok is true', () => {
+				expect(result.ok).to.equal(true)
+			})
+
 			it('db is true', () => {
 				expect(result.db).to.equal(true)
 			})
 
 			it('wp is true', () => {
 				expect(result.wp).to.equal(true)
-			})
-
-			it('running is true', () => {
-				expect(result.running).to.equal(true)
 			})
 		})
 	})
