@@ -50,7 +50,7 @@ describe('back/docker', () => {
 
 		describe('in case either db or wp are not rady', () => {
 			let result;
-		
+
 			beforeEach((done) => {
 				docker.commandRunner.run
 					.withArgs('docker container ls --format {{.Names}} --filter name=wapcon-')
@@ -59,22 +59,22 @@ describe('back/docker', () => {
 							{ type: 'stdout', text: 'foo\nwapcon-db\nbar' },
 						],
 					}))
-		
+
 				docker.checkMachineStatus()
 					.then((_result) => {
 						result = _result
 						done();
 					})
 			})
-		
+
 			it('db is true', () => {
 				expect(result.db).to.equal(true)
 			})
-		
+
 			it('wp is false', () => {
 				expect(result.wp).to.equal(false)
 			})
-		
+
 			it('running is false', () => {
 				expect(result.running).to.equal(false)
 			})
@@ -82,7 +82,7 @@ describe('back/docker', () => {
 
 		describe('in case both db or wp are rady', () => {
 			let result;
-		
+
 			beforeEach((done) => {
 				docker.commandRunner.run
 					.withArgs('docker container ls --format {{.Names}} --filter name=wapcon-')
@@ -91,22 +91,22 @@ describe('back/docker', () => {
 							{ type: 'stdout', text: 'wapcon-db\nwapcon-wp' },
 						],
 					}))
-		
+
 				docker.checkMachineStatus()
 					.then((_result) => {
 						result = _result
 						done();
 					})
 			})
-		
+
 			it('db is true', () => {
 				expect(result.db).to.equal(true)
 			})
-		
+
 			it('wp is true', () => {
 				expect(result.wp).to.equal(true)
 			})
-		
+
 			it('running is true', () => {
 				expect(result.running).to.equal(true)
 			})
