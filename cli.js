@@ -30,15 +30,17 @@ async function ask() {
 const commands = {
 	async status () {
 		const result = await docker.checkMachineStatus()
-		console.log(result)
+		console.log('result', result)
 	},
 
 	async start () {
-		await docker.startMachine()
+		const result = await docker.startMachine()
+		console.log('result', result)
 	},
 
 	async stop () {
-		await docker.stopMachine()
+		const result = await docker.stopMachine()
+		console.log('result', result)
 	},
 }
 
