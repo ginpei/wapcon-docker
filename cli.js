@@ -34,14 +34,7 @@ const commands = {
 	},
 
 	async start () {
-		const options = {
-			databasePath: './user/db',
-			wordpressPath: './user/wp',
-			themeList: [
-			],
-		}
-
-		await docker.startMachine(null, options)
+		await docker.startMachine()
 	},
 
 	async stop () {
