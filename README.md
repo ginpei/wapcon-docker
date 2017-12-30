@@ -44,3 +44,7 @@ docker.startMachine(undefined, options)
     console.log(status.wp)
   })
 ```
+
+# License
+
+No, you cannot use this.
