@@ -29,9 +29,10 @@ console.log(result.wp)
 console.log(result.db)
 ```
 
-## `async downloadImages()`
+## `async downloadImages(options)`
 
-- returns {boolean}
+- {string} options.wp WordPress's version as image's tag
+- {string} options.db MySQL's version as image's tag
 
 ```javascript
 const result = await docker.checkImageStatus()
