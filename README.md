@@ -5,20 +5,19 @@
 
 # Features
 
-## `checkMachineStatus()`
+## `checkMachineStatus(event, options)`
 
-Check if necessary machines are ready.
+Check if necessary machines have been running.
 
+- {Event} `event` Not used. Can be `undefined`.
+- {object} `options` Not used. Can be `undefined`.
 - returns `Promise`
 
 ```javascript
-docker.checkMachineStatus()
-  .then((status) => {
-    console.log(status.ok)
-
-    console.log(status.db)
-    console.log(status.wp)
-  })
+const result = await docker.checkMachineStatus()
+console.log(status.ok)
+console.log(status.db)
+console.log(status.wp)
 ```
 
 ## `startMachine(event, options)`
@@ -33,16 +32,24 @@ Boot docker containers.
 ```javascript
 const options = {
   databasePath: 'user/db',
-  wordpressPath: 'user/wp',  // DEPRECATED
+  wordpressPath: 'user/wp',
+  themes: [
+    { id: 'xxx', path: '/path/to/theme' },
+  ],
 }
 
-docker.startMachine(undefined, options)
-  .then((status) => {
-    console.log(status.ok)
+const result = await docker.startMachine(undefined, options)
+```
 
-    console.log(status.db)
-    console.log(status.wp)
-  })
+## `stopMachine(event, options)`
+
+Boot docker containers.
+
+- {Event} `event` Not used. Can be `undefined`.
+- {object} `options` Not used. Can be `undefined`.
+
+```javascript
+await docker.stopMachine()
 ```
 
 # License
