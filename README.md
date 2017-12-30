@@ -5,13 +5,47 @@
 
 # Features
 
-## `checkMachineStatus(event, options)`
+## `async isDockerReady()`
 
-Check if necessary machines have been running.
+- returns {boolean}
 
-- {Event} `event` Not used. Can be `undefined`.
-- {object} `options` Not used. Can be `undefined`.
-- returns `Promise`
+```javascript
+if (await docker.isDockerReady()) {
+  console.log('Here you go!')
+}
+else {
+  console.log('You need to boot docker first.')
+}
+```
+
+## `async checkImageStatus()`
+
+- returns {object}
+
+```javascript
+const result = await docker.checkImageStatus()
+console.log(result.ok)
+console.log(result.wp)
+console.log(result.db)
+```
+
+## `async downloadImages()`
+
+- returns {boolean}
+
+```javascript
+const result = await docker.checkImageStatus()
+if (!result.ok) {
+  await docker.downloadImages((status) => {
+    console.log(`Progress ${status.all}%`)
+  })
+  console.log('Downloading completed!')
+}
+```
+
+## `async checkMachineStatus()`
+
+- returns {object}
 
 ```javascript
 const result = await docker.checkMachineStatus()
@@ -20,11 +54,8 @@ console.log(status.db)
 console.log(status.wp)
 ```
 
-## `startMachine(event, options)`
+## `async startMachine(options)`
 
-Boot docker containers.
-
-- {Event} `event` Not used. Can be `undefined`.
 - {object} `options`
 - {string} `options.databasePath`
 - {string} `options.wordpressPath` DEPRECATED
@@ -38,15 +69,10 @@ const options = {
   ],
 }
 
-const result = await docker.startMachine(undefined, options)
+await docker.startMachine(options)
 ```
 
-## `stopMachine(event, options)`
-
-Boot docker containers.
-
-- {Event} `event` Not used. Can be `undefined`.
-- {object} `options` Not used. Can be `undefined`.
+## `async stopMachine()`
 
 ```javascript
 await docker.stopMachine()
