@@ -18,7 +18,11 @@ async function ask() {
 			console.log('Bye')
 		}
 		else if (userCommand) {
-			await commands[userCommand]()
+			try {
+				await commands[userCommand]()
+			} catch (err) {
+				console.error(err);
+			}
 			ask()
 		}
 		else {
