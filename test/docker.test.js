@@ -23,6 +23,7 @@ describe('back/docker', () => {
 				docker.commandRunner.run
 					.withArgs('docker container ls --format {{.Names}} --filter name=wapcon-')
 					.returns(Promise.resolve({
+						code: 0,
 						result: [
 							// empty
 						],
@@ -55,6 +56,7 @@ describe('back/docker', () => {
 				docker.commandRunner.run
 					.withArgs('docker container ls --format {{.Names}} --filter name=wapcon-')
 					.returns(Promise.resolve({
+						code: 0,
 						result: [
 							{ type: 'stdout', text: 'foo\nwapcon-db\nbar' },
 						],
@@ -87,6 +89,7 @@ describe('back/docker', () => {
 				docker.commandRunner.run
 					.withArgs('docker container ls --format {{.Names}} --filter name=wapcon-')
 					.returns(Promise.resolve({
+						code: 0,
 						result: [
 							{ type: 'stdout', text: 'wapcon-db\nwapcon-wp' },
 						],
