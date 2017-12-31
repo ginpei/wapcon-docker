@@ -48,6 +48,17 @@ describe('back/docker.pullImage()', () => {
 		docker.commandRunner.run.restore()
 	})
 
+	it('requires image name', (done) => {
+		let called = false
+
+		functions.pullImage('', '')
+			.catch((err) => {
+				called = true
+				expect(called).to.equal(true)
+				done()
+			})
+	})
+
 	describe('in progress callback', () => {
 		beforeEach(async () => {
 			const stdoutLines = [...stdoutLineGroups.working]
