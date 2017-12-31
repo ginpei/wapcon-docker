@@ -46,6 +46,14 @@ const commands = {
 		const result = await docker.stopMachine()
 		console.log('result', result)
 	},
+
+	async pull () {
+		await docker.pullImages({ wp: 'latest', db: 'latest' }, ({ type, status }) => {
+			const nAll = status.progress.size
+			const nComplete = [...status.progress.values()].filter(v => v === status.COMPLETE).length
+			console.log(`${type}: ${nComplete}/${nAll}`)
+		})
+	},
 }
 
 ask()

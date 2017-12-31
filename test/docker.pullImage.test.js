@@ -18,13 +18,13 @@ describe('back/docker.pullImage()', () => {
 			'C00186f8edb2: Pulling fs layer',  // C
 			'A00b522d92ff: Pull complete',     // A: complete
 			'B0051f247827: Download complete', // B: in progress (downloaded)
-		],
+		].join('\n'),
 		complete: [
 			'B0051f247827: Pull complete',     // B: complete
 			'C00186f8edb2: Pull complete',     // C: complete
 			'Digest: sha256:832e18fa1b902880e3272e57e1d54caa383d3f5d8d72c194ba7f251a5ab12005',
 			'Status: Downloaded newer image for wordpress:latest',
-		]
+		].join('\n')
 	}
 
 	function sleep(ms) {
@@ -61,14 +61,10 @@ describe('back/docker.pullImage()', () => {
 
 	describe('in progress callback', () => {
 		beforeEach(async () => {
-			const stdoutLines = [...stdoutLineGroups.working]
-
 			docker.commandRunner.run
 				.withArgs('docker pull wordpress:latest')
 				.callsFake(async (command, callback) => {
-					for (const text of stdoutLines) {
-						callback(makeOutput(text))
-					}
+					callback(makeOutput(stdoutLineGroups.working))
 				})
 
 			await functions.pullImage('wordpress', 'latest', (_status) => {
@@ -104,14 +100,11 @@ describe('back/docker.pullImage()', () => {
 
 	describe('when done', () => {
 		beforeEach(async () => {
-			const stdoutLines = [...stdoutLineGroups.working, ...stdoutLineGroups.complete]
-
 			docker.commandRunner.run
 				.withArgs('docker pull wordpress:latest')
 				.callsFake(async (command, callback) => {
-					for (const text of stdoutLines) {
-						callback(makeOutput(text))
-					}
+					callback(makeOutput(stdoutLineGroups.working))
+					callback(makeOutput(stdoutLineGroups.complete))
 				})
 
 			status = await functions.pullImage('wordpress', 'latest')
