@@ -48,10 +48,12 @@ const commands = {
 	},
 
 	async pull () {
-		await docker.pullImages({ wp: 'latest', db: 'latest' }, ({ type, status }) => {
-			const nAll = status.progress.size
-			const nComplete = [...status.progress.values()].filter(v => v === status.COMPLETE).length
-			console.log(`${type}: ${nComplete}/${nAll}`)
+		await docker.pullImages({ wp: 'latest', db: 'latest' }, ({ wp, db }) => {
+			const nWpAll = wp.progress.size
+			const nWpComplete = [...wp.progress.values()].filter(v => v === wp.COMPLETE).length
+			const nDbAll = db.progress.size
+			const nDbComplete = [...db.progress.values()].filter(v => v === db.COMPLETE).length
+			console.log(`wp: ${nWpComplete}/${nWpAll}, db: ${nDbComplete}/${nDbAll}`)
 		})
 	},
 }
