@@ -30,6 +30,11 @@ const commands = {
 			console.log(`wp: ${nWpComplete}/${nWpAll}, db: ${nDbComplete}/${nDbAll}`)
 		})
 	},
+
+	async 'remove-images'() {
+		console.log('(Note: this "remove-images" is NOT a wapcon-docker\'s command.)')
+		await docker.commandRunner.run('docker image rm wordpress:latest mysql:latest')
+	},
 }
 
 async function ask() {
