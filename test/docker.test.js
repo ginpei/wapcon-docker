@@ -17,7 +17,7 @@ describe('back/docker', () => {
 
 	describe('checkMachineStatus()', () => {
 		describe('in case both db and wp are not rady', () => {
-			let result;
+			let result
 
 			beforeEach((done) => {
 				docker.commandRunner.run
@@ -32,7 +32,7 @@ describe('back/docker', () => {
 				docker.checkMachineStatus()
 					.then((_result) => {
 						result = _result
-						done();
+						done()
 					})
 			})
 
@@ -50,7 +50,7 @@ describe('back/docker', () => {
 		})
 
 		describe('in case either db or wp are not rady', () => {
-			let result;
+			let result
 
 			beforeEach((done) => {
 				docker.commandRunner.run
@@ -65,7 +65,7 @@ describe('back/docker', () => {
 				docker.checkMachineStatus()
 					.then((_result) => {
 						result = _result
-						done();
+						done()
 					})
 			})
 
@@ -83,7 +83,7 @@ describe('back/docker', () => {
 		})
 
 		describe('in case both db or wp are rady', () => {
-			let result;
+			let result
 
 			beforeEach((done) => {
 				docker.commandRunner.run
@@ -98,7 +98,7 @@ describe('back/docker', () => {
 				docker.checkMachineStatus()
 					.then((_result) => {
 						result = _result
-						done();
+						done()
 					})
 			})
 
@@ -180,7 +180,6 @@ describe('back/docker', () => {
 
 	describe('checkImageAvailability()', () => {
 		const event = {}
-		let result
 
 		beforeEach(() => {
 			docker.commandRunner.run
