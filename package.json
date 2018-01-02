@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./main.js lib test",
+    "lint": "eslint ./main.js ./cli.js lib test",
     "start": "npm run test",
     "test": "npm run lint -s && cross-env NODE_ENV=test mocha test/**/*.test.js"
   },
