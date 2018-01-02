@@ -1,3 +1,4 @@
+const chaiAsPromised = require("chai-as-promised");
 const expect = require('chai').expect
 const fs = require('fs')
 const path = require('path')
@@ -5,6 +6,8 @@ const sinon = require('sinon')
 
 const docker = require('../index.js')
 const functions = docker.functions
+
+require('chai').use(chaiAsPromised);
 
 describe('back/docker.pullImage()', () => {
 	let result
@@ -48,15 +51,10 @@ describe('back/docker.pullImage()', () => {
 		docker.commandRunner.run.restore()
 	})
 
-	it('requires image name', (done) => {
+	it('requires image name', async () => {
 		let called = false
 
-		functions.pullImage('', '')
-			.catch((err) => {
-				called = true
-				expect(called).to.equal(true)
-				done()
-			})
+		await expect(functions.pullImage('', '')).to.eventually.rejectedWith(Error)
 	})
 
 	describe('in progress callback', () => {
