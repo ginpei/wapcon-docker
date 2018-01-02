@@ -52,8 +52,6 @@ describe('back/docker.pullImage()', () => {
 	})
 
 	it('requires image name', async () => {
-		let called = false
-
 		await expect(functions.pullImage('', '')).to.eventually.rejectedWith(Error)
 	})
 
