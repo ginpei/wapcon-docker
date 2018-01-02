@@ -61,7 +61,7 @@ describe('back/docker.pullImage()', () => {
 		beforeEach(async () => {
 			docker.commandRunner.run
 				.withArgs('docker pull wordpress:latest')
-				.callsFake(async (command, callback) => {
+				.callsFake((command, callback) => {
 					callback(makeOutput(stdoutLineGroups.working))
 				})
 
@@ -100,7 +100,7 @@ describe('back/docker.pullImage()', () => {
 		beforeEach(async () => {
 			docker.commandRunner.run
 				.withArgs('docker pull wordpress:latest')
-				.callsFake(async (command, callback) => {
+				.callsFake((command, callback) => {
 					callback(makeOutput(stdoutLineGroups.working))
 					callback(makeOutput(stdoutLineGroups.complete))
 				})
