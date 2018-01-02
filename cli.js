@@ -21,6 +21,11 @@ const commands = {
 		console.log('result', result)
 	},
 
+	async images() {
+		const result = await docker.checkImageStatus()
+		console.log('result', result)
+	},
+
 	async pull() {
 		await docker.pullImages({ wp: 'latest', db: 'latest' }, ({ wp, db }) => {
 			const nWpAll = wp.progress.size
