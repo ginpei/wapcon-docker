@@ -3,6 +3,9 @@ module.exports = {
 		"es6": true,
 		"node": true
 	},
+	"parserOptions": {
+		"ecmaVersion": 2017,
+	},
 	"plugins": [
 	],
 	"extends": "eslint:recommended",
@@ -256,7 +259,11 @@ module.exports = {
 		"space-before-blocks": "error",
 		"space-before-function-paren": [
 			"error",
-			"never"
+			{
+				"anonymous": "never",
+				"asyncArrow": "always",
+				"named": "never",
+			},
 		],
 		"space-in-parens": [
 			"error",

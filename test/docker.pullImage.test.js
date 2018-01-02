@@ -1,16 +1,13 @@
-const chaiAsPromised = require("chai-as-promised");
+const chaiAsPromised = require('chai-as-promised')
 const expect = require('chai').expect
-const fs = require('fs')
-const path = require('path')
 const sinon = require('sinon')
 
 const docker = require('../index.js')
 const functions = docker.functions
 
-require('chai').use(chaiAsPromised);
+require('chai').use(chaiAsPromised)
 
 describe('back/docker.pullImage()', () => {
-	let result
 	let status
 
 	const stdoutLineGroups = {
@@ -27,22 +24,17 @@ describe('back/docker.pullImage()', () => {
 			'C00186f8edb2: Pull complete',     // C: complete
 			'Digest: sha256:832e18fa1b902880e3272e57e1d54caa383d3f5d8d72c194ba7f251a5ab12005',
 			'Status: Downloaded newer image for wordpress:latest',
-		].join('\n')
-	}
-
-	function sleep(ms) {
-		return new Promise(f => setTimeout(f, ms))
+		].join('\n'),
 	}
 
 	function makeOutput(text) {
-		return output = {
+		return {
 			text: text,
 			type: 'stdout',
 		}
 	}
 
 	beforeEach(() => {
-		result = undefined
 		status = undefined
 		sinon.stub(docker.commandRunner, 'run')
 	})
