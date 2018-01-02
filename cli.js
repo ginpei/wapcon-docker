@@ -1,7 +1,7 @@
 /* eslint no-console: "off" */
 
-var prompt = require('prompt')
-var docker = require('./lib/docker.js')
+const prompt = require('prompt')
+const docker = require('./lib/docker.js')
 
 prompt.start()
 
