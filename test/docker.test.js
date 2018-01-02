@@ -179,8 +179,6 @@ describe('back/docker', () => {
 	})
 
 	describe('checkImageAvailability()', () => {
-		const event = {}
-
 		beforeEach(() => {
 			docker.commandRunner.run
 				.withArgs('docker image ls --format {{.Repository}}:{{.Tag}}')
@@ -196,7 +194,7 @@ describe('back/docker', () => {
 				repository: 'wordpress',
 				tag: 'latest',
 			}
-			functions.checkImageAvailability(event, options)
+			functions.checkImageAvailability(options)
 				.then(({ available, repository, tag }) => {
 					expect(available).to.equal(true)
 					expect(repository).to.equal('wordpress')
@@ -210,7 +208,7 @@ describe('back/docker', () => {
 				repository: 'WordPress',
 				tag: 'latest',
 			}
-			functions.checkImageAvailability(event, options)
+			functions.checkImageAvailability(options)
 				.then(({ available, repository, tag }) => {
 					expect(available).to.equal(false)
 					expect(repository).to.equal('WordPress')
@@ -224,7 +222,7 @@ describe('back/docker', () => {
 				repository: 'wordpress',
 				tag: '0.0.0',
 			}
-			functions.checkImageAvailability(event, options)
+			functions.checkImageAvailability(options)
 				.then(({ available, repository, tag }) => {
 					expect(available).to.equal(false)
 					expect(repository).to.equal('wordpress')
