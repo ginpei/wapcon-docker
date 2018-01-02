@@ -52,7 +52,7 @@ async function ask() {
 
 		const userCommand = result.command
 
-		if (userCommand === 'exit') {
+		if (userCommand === 'exit' || userCommand === '') {
 			console.log('Bye')
 		}
 		else if (userCommand) {
