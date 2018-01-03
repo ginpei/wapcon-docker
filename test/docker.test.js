@@ -1,7 +1,11 @@
-const expect = require('chai').expect
+const chaiAsPromised = require('chai-as-promised')
+const chai = require('chai')
 const fs = require('fs')
 const path = require('path')
 const sinon = require('sinon')
+
+chai.use(chaiAsPromised)
+const expect = chai.expect
 
 const docker = require('../index.js')
 const functions = docker.functions
@@ -229,6 +233,25 @@ describe('back/docker', () => {
 					expect(tag).to.equal('0.0.0')
 					done()
 				})
+		})
+	})
+
+	describe('startMachine()', () => {
+		describe('if machines are not ready', () => {
+			beforeEach(() => {
+				docker.commandRunner.run
+					.withArgs('docker image ls --format {{.Repository}}:{{.Tag}}')
+					.returns(Promise.resolve({
+						code: 0,
+						result: [
+							// empty
+						],
+					}))
+			})
+
+			it('throws an error', async () => {
+				await expect(docker.startMachine(null, {})).to.eventually.rejectedWith(Error)
+			})
 		})
 	})
 })
