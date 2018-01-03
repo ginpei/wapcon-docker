@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint ./main.js ./cli.js lib test",
     "start": "npm run test",
-    "test": "npm run lint -s && cross-env NODE_ENV=test mocha test/**/*.test.js"
+    "run-test": "NODE_ENV=test mocha test/",
+    "test": "npm run lint -s && npm run run-test -s"
   },
   "dependencies": {
     "prompt": "^1.0.0"
