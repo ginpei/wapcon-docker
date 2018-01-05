@@ -10,16 +10,18 @@
 - returns {boolean}
 
 ```javascript
-if (await docker.isDockerReady()) {
-  console.log('Here you go!')
-}
-else {
+if (!await docker.isDockerReady()) {
   console.log('You need to boot docker first.')
+  return
 }
 ```
 
-## `async checkImageStatus()`
+## `async function checkImageStatus({ wp, db })`
 
+Check if images are ready.
+
+- {string} `wp` WordPress's version as image's tag. Default is `latest`.
+- {string} `db` MySQL's version as image's tag. Default is `latest`.
 - returns {object}
 
 ```javascript
@@ -29,10 +31,13 @@ console.log(result.wp)
 console.log(result.db)
 ```
 
-## `async downloadImages(options)`
+## `async downloadImages({ wp, db })`
 
-- {string} options.wp WordPress's version as image's tag
-- {string} options.db MySQL's version as image's tag
+Download images.
+
+- {string} `wp` WordPress's version as image's tag. Default is `latest`.
+- {string} `db` MySQL's version as image's tag. Default is `latest`.
+- returns {object}
 
 ```javascript
 const result = await docker.checkImageStatus()
