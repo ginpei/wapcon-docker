@@ -68,20 +68,25 @@ describe('back/docker.pullImage()', () => {
 			expect(status.ok).to.equal(false)
 		})
 
+		// it('gives progress', () => {
+		// 	expect(status.nCompleted).to.equal(1)
+		// 	expect(status.nAll).to.equal(3)
+		// })
+
 		it('contains 3 items', () => {
-			expect(status.progress.size).to.equal(3)
+			expect(status.layers.size).to.equal(3)
 		})
 
 		it('mark it complete', () => {
-			expect(status.progress.get('A00b522d92ff')).to.equal(status.COMPLETE)
+			expect(status.layers.get('A00b522d92ff')).to.equal(status.COMPLETE)
 		})
 
 		it('mark it working if it is just download complete', () => {
-			expect(status.progress.get('B0051f247827')).to.equal(status.WORKING)
+			expect(status.layers.get('B0051f247827')).to.equal(status.WORKING)
 		})
 
 		it('mark it working if it is pulling', () => {
-			expect(status.progress.get('C00186f8edb2')).to.equal(status.WORKING)
+			expect(status.layers.get('C00186f8edb2')).to.equal(status.WORKING)
 		})
 	})
 
@@ -102,13 +107,13 @@ describe('back/docker.pullImage()', () => {
 		})
 
 		it('contains 3 items', () => {
-			expect(status.progress.size).to.equal(3)
+			expect(status.layers.size).to.equal(3)
 		})
 
 		it('each item is marked as complete', () => {
-			expect(status.progress.get('A00b522d92ff')).to.equal(status.COMPLETE)
-			expect(status.progress.get('B0051f247827')).to.equal(status.COMPLETE)
-			expect(status.progress.get('C00186f8edb2')).to.equal(status.COMPLETE)
+			expect(status.layers.get('A00b522d92ff')).to.equal(status.COMPLETE)
+			expect(status.layers.get('B0051f247827')).to.equal(status.COMPLETE)
+			expect(status.layers.get('C00186f8edb2')).to.equal(status.COMPLETE)
 		})
 	})
 })
