@@ -27,13 +27,29 @@ const commands = {
 	},
 
 	async pull() {
-		await docker.pullImages({ wp: 'latest', db: 'latest' }, ({ wp, db }) => {
-			const nWpAll = wp.progress.size
-			const nWpComplete = [...wp.progress.values()].filter(v => v === wp.COMPLETE).length
-			const nDbAll = db.progress.size
-			const nDbComplete = [...db.progress.values()].filter(v => v === db.COMPLETE).length
-			console.log(`wp: ${nWpComplete}/${nWpAll}, db: ${nDbComplete}/${nDbAll}`)
-		})
+		const imageStatus = await docker.checkImageStatus()
+
+		if (imageStatus.wp) {
+			console.log('WordPress is ready.')
+		}
+		else {
+			await docker.pullImage('wordpress', 'latest', (status) => {
+				const nAll = status.progress.size
+				const nDone = [...status.progress.values()].filter(v => v === status.COMPLETE).length
+				console.log(`WordPress: ${nDone}/${nAll}`)
+			})
+		}
+
+		if (imageStatus.db) {
+			console.log('MySQL is ready.')
+		}
+		else {
+			await docker.pullImage('mysql', 'latest', (status) => {
+				const nAll = status.progress.size
+				const nDone = [...status.progress.values()].filter(v => v === status.COMPLETE).length
+				console.log(`MySQL: ${nDone}/${nAll}`)
+			})
+		}
 	},
 
 	async 'remove-images'() {

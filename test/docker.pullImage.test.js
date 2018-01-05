@@ -3,7 +3,6 @@ const expect = require('chai').expect
 const sinon = require('sinon')
 
 const docker = require('../index.js')
-const functions = docker.functions
 
 require('chai').use(chaiAsPromised)
 
@@ -44,7 +43,7 @@ describe('back/docker.pullImage()', () => {
 	})
 
 	it('requires image name', async () => {
-		await expect(functions.pullImage('', '')).to.eventually.rejectedWith(Error)
+		await expect(docker.pullImage('', '')).to.eventually.rejectedWith(Error)
 	})
 
 	describe('in progress callback', () => {
@@ -55,7 +54,7 @@ describe('back/docker.pullImage()', () => {
 					callback(makeOutput(stdoutLineGroups.working))
 				})
 
-			await functions.pullImage('wordpress', 'latest', (_status) => {
+			await docker.pullImage('wordpress', 'latest', (_status) => {
 				status = _status
 			})
 		})
@@ -95,7 +94,7 @@ describe('back/docker.pullImage()', () => {
 					callback(makeOutput(stdoutLineGroups.complete))
 				})
 
-			status = await functions.pullImage('wordpress', 'latest')
+			status = await docker.pullImage('wordpress', 'latest')
 		})
 
 		it('is ok', () => {
