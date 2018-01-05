@@ -31,23 +31,23 @@ console.log(result.wp)
 console.log(result.db)
 ```
 
-## `async downloadImages({ wp, db })`
+## `async downloadImage(image, tag, callback)`
 
-Download images.
+Download an image.
 
-- {string} `wp` WordPress's version as image's tag. Default is `latest`.
-- {string} `db` MySQL's version as image's tag. Default is `latest`.
+- {string} `image` Docker image's name. e.g. `"wordpress"`
+- {string} `tag` Target tag. e.g. `"latest"`
+- {function} `callback` Function called for each progress.
 - returns {object}
 
 ```javascript
-const result = await docker.checkImageStatus()
-if (!result.ok) {
-  await docker.downloadImages((status) => {
-    console.log(`Progress ${status.all}%`)
-  })
-  console.log('Downloading completed!')
-}
+await docker.downloadImage('wordpress', 'latest', (status) => {
+  const progressRate = Math.floor(status.numDone / status.numAll * 10000) / 100
+  console.log(`Progress ${progressRate}%`)
+})
 ```
+
+An object that this returns and one `callback` receives are the same.
 
 ## `async checkMachineStatus()`
 
