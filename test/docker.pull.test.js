@@ -6,7 +6,7 @@ const docker = require('../index.js')
 
 require('chai').use(chaiAsPromised)
 
-describe('back/docker.pullImage()', () => {
+describe('back/docker.pull()', () => {
 	let status
 
 	const stdoutLineGroups = {
@@ -43,7 +43,7 @@ describe('back/docker.pullImage()', () => {
 	})
 
 	it('requires image name', async () => {
-		await expect(docker.pullImage('', '')).to.eventually.rejectedWith(Error)
+		await expect(docker.pull('', '')).to.eventually.rejectedWith(Error)
 	})
 
 	describe('in progress callback', () => {
@@ -54,7 +54,7 @@ describe('back/docker.pullImage()', () => {
 					callback(makeOutput(stdoutLineGroups.working))
 				})
 
-			await docker.pullImage('wordpress', 'latest', (_status) => {
+			await docker.pull('wordpress', 'latest', (_status) => {
 				status = _status
 			})
 		})
@@ -69,8 +69,8 @@ describe('back/docker.pullImage()', () => {
 		})
 
 		it('gives progress', () => {
-			expect(status.nCompleted).to.equal(1)
-			expect(status.nAll).to.equal(3)
+			expect(status.numCompleted).to.equal(1)
+			expect(status.numAll).to.equal(3)
 		})
 
 		it('contains 3 items', () => {
@@ -99,7 +99,7 @@ describe('back/docker.pullImage()', () => {
 					callback(makeOutput(stdoutLineGroups.complete))
 				})
 
-			status = await docker.pullImage('wordpress', 'latest')
+			status = await docker.pull('wordpress', 'latest')
 		})
 
 		it('is ok', () => {
@@ -107,8 +107,8 @@ describe('back/docker.pullImage()', () => {
 		})
 
 		it('gives progress', () => {
-			expect(status.nCompleted).to.equal(3)
-			expect(status.nAll).to.equal(3)
+			expect(status.numCompleted).to.equal(3)
+			expect(status.numAll).to.equal(3)
 		})
 
 		it('contains 3 items', () => {

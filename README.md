@@ -31,7 +31,7 @@ console.log(result.wp)
 console.log(result.db)
 ```
 
-## `async downloadImage(image, tag, callback)`
+## `async pull(image, tag, callback)`
 
 Download an image.
 
@@ -41,9 +41,8 @@ Download an image.
 - returns {object}
 
 ```javascript
-await docker.downloadImage('wordpress', 'latest', (status) => {
-  const progressRate = Math.floor(status.numDone / status.numAll * 10000) / 100
-  console.log(`Progress ${progressRate}%`)
+await docker.pull('wordpress', 'latest', (status) => {
+  console.log(`Progress ${status.numCompleted}/${status.numAll}`)
 })
 ```
 

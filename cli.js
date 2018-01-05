@@ -34,7 +34,7 @@ const commands = {
 		}
 		else {
 			await docker.pullImage('wordpress', 'latest', (status) => {
-				console.log(`WordPress: ${status.nCompleted}/${status.nAll}`)
+				console.log(`WordPress: ${status.numCompleted}/${status.numAll}`)
 			})
 		}
 
@@ -43,7 +43,7 @@ const commands = {
 		}
 		else {
 			await docker.pullImage('mysql', 'latest', (status) => {
-				console.log(`MySQL: ${status.nCompleted}/${status.nAll}`)
+				console.log(`MySQL: ${status.numCompleted}/${status.numAll}`)
 			})
 		}
 	},
