@@ -34,9 +34,7 @@ const commands = {
 		}
 		else {
 			await docker.pullImage('wordpress', 'latest', (status) => {
-				const nAll = status.progress.size
-				const nDone = [...status.progress.values()].filter(v => v === status.COMPLETE).length
-				console.log(`WordPress: ${nDone}/${nAll}`)
+				console.log(`WordPress: ${status.nCompleted}/${status.nAll}`)
 			})
 		}
 
@@ -45,9 +43,7 @@ const commands = {
 		}
 		else {
 			await docker.pullImage('mysql', 'latest', (status) => {
-				const nAll = status.progress.size
-				const nDone = [...status.progress.values()].filter(v => v === status.COMPLETE).length
-				console.log(`MySQL: ${nDone}/${nAll}`)
+				console.log(`MySQL: ${status.nCompleted}/${status.nAll}`)
 			})
 		}
 	},

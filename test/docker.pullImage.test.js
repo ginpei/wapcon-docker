@@ -68,10 +68,10 @@ describe('back/docker.pullImage()', () => {
 			expect(status.ok).to.equal(false)
 		})
 
-		// it('gives progress', () => {
-		// 	expect(status.nCompleted).to.equal(1)
-		// 	expect(status.nAll).to.equal(3)
-		// })
+		it('gives progress', () => {
+			expect(status.nCompleted).to.equal(1)
+			expect(status.nAll).to.equal(3)
+		})
 
 		it('contains 3 items', () => {
 			expect(status.layers.size).to.equal(3)
@@ -104,6 +104,11 @@ describe('back/docker.pullImage()', () => {
 
 		it('is ok', () => {
 			expect(status.ok).to.equal(true)
+		})
+
+		it('gives progress', () => {
+			expect(status.nCompleted).to.equal(3)
+			expect(status.nAll).to.equal(3)
 		})
 
 		it('contains 3 items', () => {
