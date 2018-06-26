@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./main.js ./cli.js lib test",
+    "lint": "eslint ./index.js ./cli.js lib test",
     "start": "npm run test",
     "run-test": "NODE_ENV=test mocha test/",
     "test": "npm run lint -s && npm run run-test -s"
@@ -16,7 +16,7 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "cross-env": "^5.1.3",
-    "eslint": "^4.14.0",
+    "eslint": "^5.0.1",
     "mocha": "^5.0.0",
     "sinon": "^6.0.1"
   },
